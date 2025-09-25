@@ -1,0 +1,12 @@
+[Unit]
+Description=Piper local bridge
+
+[Service]
+Type=simple
+Environment=PYTHONUNBUFFERED=1
+WorkingDirectory=__WORKDIR__
+ExecStart=__VENV__/bin/python __WORKDIR__/server.py
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

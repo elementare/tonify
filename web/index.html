@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tonify Mandarin Tone Trainer</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://unpkg.com/pinyin-pro@3.20.0/dist/index.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Tonify Mandarin tone practice for lyrics, poems, dialogs</h1>
+    <p class="small">
+      Paste Chinese text on the left. View in Hanzi, toneless Pinyin, toned Pinyin, or use the Trainer.
+      Uses ruby to align Pinyin over Hanzi. Works offline when Piper local bridge is running.
+    </p>
+
+    <div class="layout">
+      <div class="card">
+        <div class="row" style="margin-bottom:10px">
+          <label for="lyrics">Original Chinese text</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button id="demo" class="btn ghost" title="Load demo">Demo</button>
+            <button id="useSelection" class="btn ghost" title="Use selection">Practice selection</button>
+            <button id="speakSelection" class="btn ghost" title="Speak selection">Speak selection</button>
+          </div>
+        </div>
+        <textarea id="lyrics" placeholder="Paste Chinese text here…"></textarea>
+
+        <div class="controls" style="margin-top:12px">
+          <div class="mode">
+            <label><input type="radio" name="mode" value="hanzi" checked> Hanzi</label>
+            <label><input type="radio" name="mode" value="none"> Pinyin toneless</label>
+            <label><input type="radio" name="mode" value="mark"> Pinyin tone marks</label>
+            <label><input type="radio" name="mode" value="num"> Pinyin tone numbers</label>
+            <label><input type="radio" name="mode" value="trainer"> Trainer</label>
+          </div>
+          <button id="render" class="btn">Render</button>
+          <button id="copyHtml" class="btn ghost">Copy HTML</button>
+        </div>
+
+        <div style="margin-top:8px" class="small">
+          Tip. Start with Hanzi then Toneless then Tone marks. Trainer gives tone feedback.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row" style="margin-bottom:10px">
+          <label>Output</label>
+          <div class="small">Each input line becomes a separate line.</div>
+        </div>
+        <div id="out" class="out" aria-live="polite"></div>
+
+        <div class="row" style="margin-top:10px">
+          <div class="small">Trainer actions:</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button id="check" class="btn">Check tones</button>
+            <button id="resetChoices" class="btn ghost">Reset</button>
+            <div class="small">Score: <span id="score" class="score">—</span></div>
+          </div>
+        </div>
+        <div class="status" id="status"></div>
+      </div>
+
+      <div class="card panel">
+        <h3>Tone panel</h3>
+        <div class="tone-grid">
+          <button class="tone-btn" data-tone="1" title="High level tone">¯</button>
+          <button class="tone-btn" data-tone="2" title="Rising tone">ˊ</button>
+          <button class="tone-btn" data-tone="3" title="Dipping tone">ˇ</button>
+          <button class="tone-btn" data-tone="4" title="Falling tone">ˋ</button>
+          <button class="tone-btn" data-tone="5" title="Neutral tone">·</button>
+        </div>
+        <span class="small">Pick a tone then click a syllable. Keys 1–5 also work.</span>
+
+        <div class="small" style="margin-top:8px">Selection</div>
+        <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap">
+          <button id="selectPrev" class="btn ghost">Prev</button>
+          <button id="selectNext" class="btn ghost">Next</button>
+        </div>
+
+        <div class="small muted" style="margin-top:10px">Speech</div>
+        <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap">
+          <button id="speakLine" class="btn ghost">Speak line</button>
+          <button id="stopSpeak" class="btn ghost">Stop</button>
+        </div>
+        <div class="small muted" id="voiceInfo" style="margin-top:8px"></div>
+
+        <div class="small muted" style="margin-top:8px">
+          Mode: <span id="speakMode">detecting</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="small" style="margin-top:12px">
+      Privacy modes. Browser voice no server. Local Piper bridge no server. Remote TTS sends text to your server.
+    </p>
+  </div>
+</body>
+</html>
